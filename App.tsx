@@ -16,7 +16,12 @@ import {hydrateStores} from './src/stores';
 import {initServices} from './src/services';
 import {SSProvider} from './src/utils/providers';
 import {StatusBar} from 'expo-status-bar';
-import {useAppearance} from './src/utils/hooks';
+import { useAppearance } from './src/utils/hooks';
+
+import { Amplify } from 'aws-amplify';
+import awsconfig from './src/aws-exports';
+
+Amplify.configure(awsconfig);
 
 LogBox.ignoreLogs(['Require']);
 
