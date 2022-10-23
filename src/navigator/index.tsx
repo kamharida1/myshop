@@ -3,7 +3,10 @@ import {Navio} from 'rn-navio';
 import {Main} from '../screens/Main';
 import {Playground} from '../screens/Playground';
 import {Settings} from '../screens/Settings';
-import {Example} from '../screens/Example';
+import { Example } from '../screens/Example';
+import { Landing } from '../screens/Landing';
+import { SignIn } from '../screens/SignIn';
+import { SignUp } from '../screens/SignUp';
 
 import {useAppearance} from '../utils/hooks';
 import {screenDefaultOptions, tabDefaultOptions, getTabBarIcon} from '../utils/designSystem';
@@ -11,6 +14,9 @@ import {screenDefaultOptions, tabDefaultOptions, getTabBarIcon} from '../utils/d
 // NAVIO
 export const navio = Navio.build({
   screens: {
+    SignIn,
+    SignUp,
+    Landing,
     Main,
     Settings,
     Example,
@@ -22,6 +28,7 @@ export const navio = Navio.build({
     },
   },
   stacks: {
+    AuthStack: ['Landing', 'SignUp', 'SignIn'],
     MainStack: ['Main', 'Example'],
     ExampleStack: ['Example'],
   },
@@ -51,7 +58,7 @@ export const navio = Navio.build({
   modals: {
     ExampleModal: 'ExampleStack',
   },
-  root: 'Tabs',
+  root: 'AuthStack',
   hooks: [useAppearance],
   options: {
     stack: screenDefaultOptions,

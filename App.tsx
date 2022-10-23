@@ -17,6 +17,7 @@ import {initServices} from './src/services';
 import {SSProvider} from './src/utils/providers';
 import {StatusBar} from 'expo-status-bar';
 import { useAppearance } from './src/utils/hooks';
+import { AuthProvider } from './src/contexts/AuthContext';
 
 import { Amplify } from 'aws-amplify';
 import awsconfig from './src/aws-exports';
@@ -46,11 +47,13 @@ export default (): JSX.Element => {
 
   if (!ready) return <></>;
   return (
-    <GestureHandlerRootView style={{flex: 1}}>
-      <SSProvider>
-        <StatusBar style={getStatusBarStyle()} backgroundColor={getStatusBarBGColor()} />
-        <AppRoot navigationContainerProps={{theme: getNavigationTheme()}} />
-      </SSProvider>
-    </GestureHandlerRootView>
+    <AuthProvider>
+      <GestureHandlerRootView style={{flex: 1}}>
+        <SSProvider>
+          <StatusBar style={getStatusBarStyle()} backgroundColor={getStatusBarBGColor()} />
+          <AppRoot navigationContainerProps={{theme: getNavigationTheme()}} />
+        </SSProvider>
+      </GestureHandlerRootView>
+    </AuthProvider>
   );
 };

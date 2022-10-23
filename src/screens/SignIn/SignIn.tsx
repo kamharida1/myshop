@@ -11,11 +11,11 @@ import {Section} from '../../components/Section';
 import {BButton} from '../../components/Button';
 import {useAppearance} from '../../utils/hooks';
 
-export type LandingProps = {
+export type SignInProps = {
   type?: 'push';
 };
 
-export const Landing: NavioScreen<LandingProps> = observer(({type = 'push'}) => {
+export const SignIn: NavioScreen<SignInProps> = observer(({type = 'push'}) => {
   useAppearance(); // for Dark Mode
   const navigation = useNavigation();
   const {t, navio} = useServices();
@@ -59,7 +59,7 @@ export const Landing: NavioScreen<LandingProps> = observer(({type = 'push'}) => 
   );
 });
 
-Landing.options = props => ({
+SignIn.options = props => ({
   headerBackTitleStyle: false,
   title: `${services.t.do('example.title')} ${(props?.route?.params as Props)?.type ?? ''}`,
 });
