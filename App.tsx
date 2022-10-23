@@ -2,7 +2,8 @@ import 'expo-dev-client';
 import React, {useCallback, useEffect, useState} from 'react';
 import {LogBox} from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
 
 import {AppRoot} from './src/navigator';
 import {
