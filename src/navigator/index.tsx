@@ -1,9 +1,9 @@
 import {Navio} from 'rn-navio';
 
-import {Main} from './main';
-import {Playground} from './playground';
-import {Settings} from './settings';
-import {Example} from './_screen-sample';
+import {Main} from '../screens/Main';
+import {Playground} from '../screens/Playground';
+import {Settings} from '../screens/Settings';
+import {Example} from '../screens/Example';
 
 import {useAppearance} from '../utils/hooks';
 import {screenDefaultOptions, tabDefaultOptions, getTabBarIcon} from '../utils/designSystem';
