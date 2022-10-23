@@ -1,5 +1,5 @@
 import * as Font from 'expo-font';
-import {IconComponent} from '../components/icon';
+import {IconComponent} from '../components/Icon';
 import { stores } from '../stores';
 
 let customFonts = {

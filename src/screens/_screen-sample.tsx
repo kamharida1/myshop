@@ -7,8 +7,8 @@ import {NavioScreen} from 'rn-navio';
 
 import {services, useServices} from '../services';
 // import {useStores} from '../stores';
-import {Section} from '../components/section';
-import {BButton} from '../components/button';
+import {Section} from '../components/Section';
+import {BButton} from '../components/Button';
 import {useAppearance} from '../utils/hooks';
 
 export type Props = {

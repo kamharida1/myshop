@@ -10,10 +10,10 @@ import {NavioScreen} from 'rn-navio';
 
 import {services, useServices} from '../services';
 import {useStores} from '../stores';
-import {Section} from '../components/section';
-import {BButton, HeaderButton} from '../components/button';
-import {Reanimated2} from '../components/reanimated2';
-import {Row} from '../components/row';
+import {Section} from '../components/Section';
+import {BButton, HeaderButton} from '../components';
+import {Reanimated2} from '../components/Reanimated2';
+import {Row} from '../components/Row';
 import {useAppearance} from '../utils/hooks';
 
 export const Main: NavioScreen = observer(({}) => {

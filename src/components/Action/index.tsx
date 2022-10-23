@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, Colors} from 'react-native-ui-lib';
 import {Bounceable} from 'rn-bounceable';
-import {Icon} from './icon';
+import {Icon} from '../Icon';
 
 type ActionProps = {
   title: string;

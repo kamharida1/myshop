@@ -6,7 +6,7 @@ import {Appearance as RNAppearance, Platform} from 'react-native';
 import {Colors, Typography} from 'react-native-ui-lib';
 
 import {stores} from '../stores';
-import {Icon} from '../components/icon';
+import {Icon} from '../components/Icon';
 import {Appearance} from './types/enums';
 
 // =============
