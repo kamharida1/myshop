@@ -2,11 +2,13 @@ import { TouchableOpacity, StyleSheet, Text, View } from 'react-native'
 import React, { memo } from 'react'
 import { useNavigation } from "@react-navigation/native";
 
-import Apple from '../../../assets/svg/Apple'
-import Facebook from '../../../assets/svg/Facebook'
-import Google from '../../../assets/svg/Google'
-import Mail from '../../../assets/svg/Mail'
-import { colors } from '../../../const'
+import Apple from '../../../../assets/svg/Apple'
+import Google from '../../../../assets/svg/Google'
+import Facebook from '../../../../assets/svg/Facebook'
+import Mail from '../../../../assets/svg/Mail'
+import {services, useServices} from '../../../services';
+
+// import { colors } from '../../../const'
 
 interface SignUpButtonsT{
   onPress?: () => void
@@ -15,10 +17,12 @@ interface SignUpButtonsT{
 
 const SignUpButtons = memo<SignUpButtonsT>(({ onPress, mail }) => {
   const navigation = useNavigation();
+  const { navio } = useServices();
+
   return (
     <View style={styles.mainContainer}>
       {mail && (
-        <TouchableOpacity onPress={()=>{navigation.navigate('SIGNIN')}} style={styles.button}>
+        <TouchableOpacity onPress={()=>{navio.push('SignIn')}} style={styles.button}>
         <Mail style={styles.icon} />
         <Text style={styles.textStyle}>Continue With Email</Text>
       </TouchableOpacity>

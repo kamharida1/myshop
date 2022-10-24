@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {ScrollView} from 'react-native';
-import {View} from 'react-native-ui-lib';
+import {View,Text} from 'react-native-ui-lib';
 import {observer} from 'mobx-react';
 import {useNavigation} from '@react-navigation/native';
 import {NavioScreen} from 'rn-navio';
@@ -45,21 +45,13 @@ export const SignIn: NavioScreen<SignInProps> = observer(({type = 'push'}) => {
 
   return (
     <View flex bg-bgColor>
-      <ScrollView contentInsetAdjustmentBehavior="always">
-        <Section title={t.do('section.navio.title')}>
-          <BButton marginV-s1 label={t.do('section.navio.button.push')} onPress={push} />
-          <BButton marginV-s1 label={t.do('section.navio.button.push_stack')} onPress={pushStack} />
-          <BButton marginV-s1 label={t.do('section.navio.button.jump_to')} onPress={jumpTo} />
-          <BButton marginV-s1 label={t.do('section.navio.button.show')} onPress={show} />
-          <BButton marginV-s1 label={t.do('section.navio.button.back')} onPress={goBack} />
-          <BButton marginV-s1 label={'Set Root - Tabs'} onPress={setRoot} />
-        </Section>
-      </ScrollView>
+      <Text></Text>
     </View>
   );
 });
 
 SignIn.options = props => ({
   headerBackTitleStyle: false,
-  title: `${services.t.do('example.title')} ${(props?.route?.params as Props)?.type ?? ''}`,
+  title: `${'Log in'} ${(props?.route?.params as SignInProps)?.type ?? ''}`,
+  headerLargeTitleStyle: { color: 'black', fontSize: 30, fontFamily: 'airbnb-bold', alignSelf: 'center' },
 });

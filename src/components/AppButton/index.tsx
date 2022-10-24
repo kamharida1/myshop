@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React, { memo } from 'react'
 import { LinearGradient } from 'expo-linear-gradient';
-//import { colors } from '../../const'
+import { colors } from '../../constants'
 
 interface AppButtonT {
   onPress: () => void

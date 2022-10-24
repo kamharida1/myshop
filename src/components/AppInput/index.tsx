@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, TextInput } from 'react-native'
 import React from 'react'
-//import {colors} from '../../const'
+import {colors} from '../../constants'
 
 import { Space } from '../Space'
 

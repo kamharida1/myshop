@@ -11,7 +11,7 @@ export const BButton: React.FC<Props> = ({label, onPress, ...modifiers}) => {
   return (
     <View {...modifiers}>
       <Bounceable onPress={onPress}>
-        <View center bg-grey50 padding-s4 br40>
+        <View center bg-red40 padding-s4 br40>
           <Text text65M _white>
             {label}
           </Text>
