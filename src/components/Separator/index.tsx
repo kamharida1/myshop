@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   separator: {
     backgroundColor: colors.coolGray[400],
     marginVertical: 5,
-    height: 1,
+    height: StyleSheet.hairlineWidth,
     width: '100%',
   },
 })

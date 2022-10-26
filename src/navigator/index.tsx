@@ -28,7 +28,7 @@ export const navio = Navio.build({
     },
   },
   stacks: {
-    AuthStack: [ 'SignIn', 'Landing', 'SignUp',],
+    AuthStack: [ 'SignUp', 'SignIn', 'Landing',],
     MainStack: ['Main', 'Example'],
     ExampleStack: ['Example'],
   },

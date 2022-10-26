@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, MarginModifiers} from 'react-native-ui-lib';
+import { View, Text, MarginModifiers } from 'react-native-ui-lib';
 import {Bounceable} from 'rn-bounceable';
 
 type Props = MarginModifiers & {

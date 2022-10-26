@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {ScrollView} from 'react-native';
+import {ScrollView, StyleSheet} from 'react-native';
 import {View,Text} from 'react-native-ui-lib';
 import {observer} from 'mobx-react';
 import {useNavigation} from '@react-navigation/native';
@@ -10,6 +10,11 @@ import {services, useServices} from '../../services';
 import {Section} from '../../components/Section';
 import {BButton} from '../../components/Button';
 import {useAppearance} from '../../utils/hooks';
+import { BasicForm, Separator, Space } from '../../components';
+import { colors, gray } from '../../constants';
+import { Avatar } from '../../components/Avatar';
+import { Txt } from '../../components/Txt';
+import { SignInForm } from './components';
 
 export type SignInProps = {
   type?: 'push';
@@ -44,8 +49,10 @@ export const SignIn: NavioScreen<SignInProps> = observer(({type = 'push'}) => {
   // UI Methods
 
   return (
-    <View flex bg-bgColor>
-      <Text></Text>
+    <View flex style={{backgroundColor: 'white'}}>
+      <Space height={150} />
+      <SignInForm />
+      {/* <BasicForm /> */}
     </View>
   );
 });

@@ -1,9 +1,17 @@
-import { StyleSheet, Text, View, TextInput } from 'react-native'
+import { StyleSheet, Text, TextInput, View } from 'react-native'
 import React from 'react'
 
-const FloatingInput = () => {
+
+interface Props {
+  id?: number
+  title?: string
+  project?: string
+}
+
+const BasicForm = ({id, title, project}: Props) => {
   return (
-    <View style={styles.attributeContainer}>
+    <View style={styles.formContainer}>
+      <View style={styles.attributeContainer}>
         <Text style={styles.textInputTitle}>Title</Text>
         <View style={styles.textInputContainer}>
           <TextInput
@@ -13,10 +21,21 @@ const FloatingInput = () => {
           />
         </View>
       </View>
+      <View style={styles.attributeContainer}>
+        <Text style={styles.textInputTitle}>Project</Text>
+        <View style={styles.textInputContainer}>
+          <TextInput
+            style={styles.textInput}
+            underlineColorAndroid="transparent"
+            defaultValue={project}
+          />
+        </View>
+      </View>
+    </View>
   )
 }
 
-export { FloatingInput }
+export { BasicForm }
 
 const styles = StyleSheet.create({
   formContainer: {

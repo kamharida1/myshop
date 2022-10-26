@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
-import {ScrollView} from 'react-native';
-import {View} from 'react-native-ui-lib';
+import {ScrollView, StyleSheet} from 'react-native';
+import {View,Text} from 'react-native-ui-lib';
 import {observer} from 'mobx-react';
 import {useNavigation} from '@react-navigation/native';
 import {NavioScreen} from 'rn-navio';
@@ -10,6 +10,11 @@ import {services, useServices} from '../../services';
 import {Section} from '../../components/Section';
 import {BButton} from '../../components/Button';
 import {useAppearance} from '../../utils/hooks';
+import { BasicForm, Separator, Space } from '../../components';
+import { colors, gray } from '../../constants';
+import { Avatar } from '../../components/Avatar';
+import { Txt } from '../../components/Txt';
+import { SignUpForm } from './components';
 
 export type SignUpProps = {
   type?: 'push';
@@ -44,22 +49,16 @@ export const SignUp: NavioScreen<SignUpProps> = observer(({type = 'push'}) => {
   // UI Methods
 
   return (
-    <View flex bg-bgColor>
-      <ScrollView contentInsetAdjustmentBehavior="always">
-        <Section title={t.do('section.navio.title')}>
-          <BButton marginV-s1 label={t.do('section.navio.button.push')} onPress={push} />
-          <BButton marginV-s1 label={t.do('section.navio.button.push_stack')} onPress={pushStack} />
-          <BButton marginV-s1 label={t.do('section.navio.button.jump_to')} onPress={jumpTo} />
-          <BButton marginV-s1 label={t.do('section.navio.button.show')} onPress={show} />
-          <BButton marginV-s1 label={t.do('section.navio.button.back')} onPress={goBack} />
-          <BButton marginV-s1 label={'Set Root - Tabs'} onPress={setRoot} />
-        </Section>
-      </ScrollView>
+    <View flex style={{backgroundColor: 'white'}}>
+      <Space height={150} />
+      <SignUpForm />
+      {/* <BasicForm /> */}
     </View>
   );
 });
 
 SignUp.options = props => ({
   headerBackTitleStyle: false,
-  title: `${services.t.do('example.title')} ${(props?.route?.params as Props)?.type ?? ''}`,
+  title: `${'Create an account'} ${(props?.route?.params as SignUpProps)?.type ?? ''}`,
+  headerLargeTitleStyle: { color: 'black', fontSize: 30, fontFamily: 'airbnb-bold', alignSelf: 'center' },
 });

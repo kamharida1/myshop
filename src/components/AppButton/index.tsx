@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, StyleProp, ViewStyle, TextStyle } from 'react-native'
 import React, { memo } from 'react'
 import { LinearGradient } from 'expo-linear-gradient';
 import { colors } from '../../constants'
@@ -7,29 +7,31 @@ interface AppButtonT {
   onPress: () => void
   title: string
   disabled?: boolean
+  viewStyle?: StyleProp<ViewStyle>
+  textStyle?: StyleProp<TextStyle>
 }
 
-const AppButton = memo<AppButtonT>(({onPress, title, disabled}) => {
+const AppButton = memo<AppButtonT>(({onPress, title, disabled,textStyle, viewStyle}) => {
   return disabled ? (
     <LinearGradient
-        colors={['#EC0868', colors.red[600]]}
+        colors={[colors.success[400], colors.red[800]]}
         start={{x: 0, y: 0.5}}
         end={{x: 1, y: 1}}
-        style={styles.button}
+        style={[styles.button, viewStyle]}
       >
         <TouchableOpacity onPress={onPress}>
-          <Text style={styles.buttonText}>{title}</Text>
+          <Text style={[styles.buttonText, textStyle]}>{title}</Text>
         </TouchableOpacity>
       </LinearGradient>
   ): (
       <LinearGradient
-        colors={['#EC0868', colors.red[600]]}
+        colors={[colors.success[400], colors.success[800]]}
         start={{x: 0, y: 0.5}}
         end={{x: 1, y: 1}}
-        style={styles.button}
+        style={[styles.button, viewStyle]}
       >
         <TouchableOpacity onPress={onPress}>
-          <Text style={styles.buttonText}>{title}</Text>
+          <Text style={[styles.buttonText, textStyle]}>{title}</Text>
         </TouchableOpacity>
       </LinearGradient>
   )
@@ -39,15 +41,17 @@ export { AppButton }
 
 const styles = StyleSheet.create({
   button: {
-    borderRadius: 10,
-    height: 50,
+    borderRadius: 6,
+    height: 45,
+    alignItems: 'center',
+    justifyContent: 'center'
     //marginHorizontal: 10
   },
   buttonText: {
-    fontSize: 18,
-    fontFamily: 'airbnb-medium',
-    textAlign: 'center',
-    margin: 10,
+    fontSize: 16,
+    fontFamily: 'airbnb-bold',
+    // textAlign: 'center',
+    // margin: 10,
     color: '#ffffff',
     backgroundColor: 'transparent',
   },
