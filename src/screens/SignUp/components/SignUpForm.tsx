@@ -11,6 +11,7 @@ import * as yup from 'yup';
 import Google from '../../../../assets/svg/Google'
 import { AppInput, AppButton, FloatingInput, Separator, Space, Txt, Icon } from '../../../components'
 import { LinearGradient } from 'expo-linear-gradient'
+import { navio } from '../../../navigator'
 
 const validationSchema = yup.object().shape({
   firstName: yup
@@ -92,7 +93,8 @@ export const SignUpForm = () => {
         onSubmit={(values, actions) => {
           signUp({ email: values.email})
             .then(() => {
-             Alert.alert(JSON.stringify(values))
+              Alert.alert(JSON.stringify(values))
+              navio.pushStack('MainStack')
             })
             .catch(error => {
               actions.setFieldError("general", error.message)
@@ -111,18 +113,25 @@ export const SignUpForm = () => {
               formikProps={formikProps}
               formikKey="lastName"
               placeholder="your given name"
+              autoCorrect={false}
             />
             <AppInput
               label="Last Name"
               formikProps={formikProps}
               formikKey="lastName"
               placeholder="your family name"
+              autoCorrect={false}
             />
             <AppInput
               label="Email"
               formikProps={formikProps}
               formikKey="email"
               placeholder="johndoe@example.com"
+              autoCapitalize="none"
+              autoCompleteType="email"
+              autoCorrect={false}
+              keyboardType="email-address"
+              textContentType="emailAddress"
             />
             <AppInput
               label="Password"
@@ -130,6 +139,8 @@ export const SignUpForm = () => {
               formikKey="password"
               placeholder="password"
               secureTextEntry
+              textContentType="password"
+              autoCapitalize="none"
             />
             <AppInput
               label="Confirm Password"
@@ -137,6 +148,8 @@ export const SignUpForm = () => {
               formikKey="confirmPassword"
               placeholder="confirm password"
               secureTextEntry
+              textContentType="password"
+              autoCapitalize="none"
             />
             <Space height={10} />
             <View
@@ -197,7 +210,8 @@ export const SignUpForm = () => {
                       alignItems: 'center',
                       justifyContent: 'center',
                       flexDirection: 'row'
-                    }}
+                      }}
+                      onPress={()=>navio.push('MainStack')}
                   >
                     <Txt
                       title={'Agree & Continue'}

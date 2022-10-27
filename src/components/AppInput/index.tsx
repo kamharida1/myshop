@@ -31,7 +31,7 @@ const AppInput = ({ label, formikProps, formikKey, ...rest }) => {
           {...rest}
         />
       </View>
-       <Space height={2} />
+       <Space height={1} />
        <Text style={{ color: 'red', fontFamily: 'airbnb-medium' }}>{formikProps.touched[formikKey] && formikProps.errors[formikKey]}</Text>
     </View>
   )
@@ -41,7 +41,7 @@ export { AppInput }
 
 const styles = StyleSheet.create({
   attributeContainer: {
-    marginVertical: 2,
+    marginVertical: 4,
   },
   textInputTitle: {
     fontSize: 14,

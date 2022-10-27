@@ -29,8 +29,10 @@ export const SignIn: NavioScreen<SignInProps> = observer(({type = 'push'}) => {
   // State
 
   // Methods
-  const push = () => navio.push('Example', {type: 'push'});
-  const pushStack = () => navio.pushStack('ExampleStack');
+  const push = () => navio.push('Example',
+    // { type: 'push' }
+  );
+  const pushStack = () => navio.pushStack('MainStack');
   const jumpTo = () => navio.jumpTo('PlaygroundTab');
   const show = () => navio.show('ExampleModal');
   const setRoot = () => navio.setRoot('Tabs');
@@ -59,6 +61,6 @@ export const SignIn: NavioScreen<SignInProps> = observer(({type = 'push'}) => {
 
 SignIn.options = props => ({
   headerBackTitleStyle: false,
-  title: `${'Log in'} ${(props?.route?.params as SignInProps)?.type ?? ''}`,
+  title: `${'Log in'} `,
   headerLargeTitleStyle: { color: 'black', fontSize: 30, fontFamily: 'airbnb-bold', alignSelf: 'center' },
 });

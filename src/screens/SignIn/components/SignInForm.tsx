@@ -11,6 +11,7 @@ import * as yup from 'yup';
 import Google from '../../../../assets/svg/Google'
 import { AppInput, AppButton, FloatingInput, Separator, Space, Txt, Icon } from '../../../components'
 import { LinearGradient } from 'expo-linear-gradient'
+import { useServices } from '../../../services'
 
 const validationSchema = yup.object().shape({
   email: yup
@@ -31,6 +32,10 @@ const ButtonSpace = 15;
 export const SignInForm = () => {
   const [loading, setLoading] = useState(false)
   // const { setIsLoggedIn } = React.useContext(AuthContext)
+  const {t, navio} = useServices();
+  // const {ui} = useStores();
+  const pushStack = () => navio.pushStack('MainStack');
+
 
   useEffect(() => {
     setLoading(true)
@@ -74,7 +79,8 @@ export const SignInForm = () => {
         onSubmit={(values, actions) => {
           signUp({ email: values.email})
             .then(() => {
-             Alert.alert(JSON.stringify(values))
+              Alert.alert(JSON.stringify(values))
+              pushStack()
             })
             .catch(error => {
               actions.setFieldError("general", error.message)
@@ -93,13 +99,20 @@ export const SignInForm = () => {
               formikProps={formikProps}
               formikKey="email"
               placeholder="johndoe@example.com"
+              autoCapitalize="none"
+              autoCompleteType="email"
+              autoCorrect={false}
+              keyboardType="email-address"
+              textContentType="emailAddress"
             />
             <AppInput
-              label="Password"
+              label="Confirm Password"
               formikProps={formikProps}
-              formikKey="password"
-              placeholder="password"
+              formikKey="confirmPassword"
+              placeholder="confirm password"
               secureTextEntry
+              textContentType="password"
+              autoCapitalize="none"
             />
             <Space height={20} />
             {formikProps.isSubmitting ? (
@@ -115,7 +128,8 @@ export const SignInForm = () => {
                       alignItems: 'center',
                       justifyContent: 'center',
                       flexDirection: 'row'
-                    }}
+                      }}
+                      onPress={formikProps.handleSubmit}
                   >
                     <Txt
                       title={'Log in'}

@@ -1,22 +1,19 @@
-import React, {useEffect, useLayoutEffect} from 'react';
-import {ScrollView, StyleSheet} from 'react-native';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
+import { StyleSheet} from 'react-native';
 import { Button, View, Text} from 'react-native-ui-lib';
-import {observer} from 'mobx-react';
+import { observer } from 'mobx-react';
+import * as SecureStore from 'expo-secure-store'
 import {useNavigation} from '@react-navigation/native';
 import {NavioScreen} from 'rn-navio';
 
-import {services, useServices} from '../../services';
-// import {useStores} from '../stores';
-import {Section} from '../../components/Section';
-import {BButton} from '../../components/Button';
+import {useServices} from '../../services';
 import {useAppearance} from '../../utils/hooks';
-import { AppButton, AppInput, Icon, Separator, Space } from '../../components';
+import { Icon, Separator, Space } from '../../components';
 import { colors } from '../../constants';
 import { Txt } from '../../components/Txt';
-import Apple from '../../../assets/svg/Apple'
-import Facebook from '../../../assets/svg/Facebook'
 import Google from '../../../assets/svg/Google'
-import Mail from '../../../assets/svg/Mail'
+import { Auth } from 'aws-amplify';
+
 
 
 export type LandingProps = {
@@ -30,19 +27,39 @@ export const Landing: NavioScreen<LandingProps> = observer(({type = 'push'}) => 
   const navigation = useNavigation();
   const {t, navio} = useServices();
   // const {ui} = useStores();
+  const [loading, setLoading] = useState(false)
 
   // State
 
   // Methods
-  const push = () => navio.push('Example', {type: 'push'});
-  const pushStack = () => navio.pushStack('ExampleStack');
-  const jumpTo = () => navio.jumpTo('PlaygroundTab');
-  const show = () => navio.show('ExampleModal');
-  const setRoot = () => navio.setRoot('Tabs');
+  const push = () => navio.push('SignIn', { type: 'push' });
+  const pushSignUp = () => navio.push('SignUp')
   const goBack = () => navio.pop();
+
+  const key = async (): Promise<void> => {
+    setLoading(true);
+    try {
+      const email = await SecureStore.getItemAsync('authKeyEmail')
+      const password = await SecureStore.getItemAsync('authKeyPassword')
+      const credentials = { email, password }
+
+      if (credentials) {
+        const { email, password } = credentials;
+        const user = await Auth.signIn(email, password);
+        setLoading(false);
+        user && navio.pushStack('MainStack')
+      } else {
+        setLoading(false)
+      }
+    } catch (err) {
+      console.log("error", err)
+      setLoading(false)
+    }
+  }
 
   // Start
   useLayoutEffect(() => {
+    key()
     configureUI();
   }, []);
 
@@ -165,6 +182,7 @@ export const Landing: NavioScreen<LandingProps> = observer(({type = 'push'}) => 
             justifyContent: 'center',
             flexDirection: 'row'
           }}
+          onPress={pushSignUp}
         >
           <Txt
             title={'Sign up with email'}
@@ -191,6 +209,7 @@ export const Landing: NavioScreen<LandingProps> = observer(({type = 'push'}) => 
             fontFamily: 'airbnb-medium',
             fontSize: 17
           }}
+          onPress={push}
         />
       </View>
       <Space height={50} />
