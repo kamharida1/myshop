@@ -1,6 +1,6 @@
 {
   "auth": {
-    "myshopec0ee831": {
+    "myshop": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -11,10 +11,12 @@
           "EMAIL"
         ],
         "signupAttributes": [
-          "EMAIL"
+          "EMAIL",
+          "FAMILY_NAME",
+          "GIVEN_NAME"
         ],
         "passwordProtectionSettings": {
-          "passwordPolicyMinLength": 8,
+          "passwordPolicyMinLength": 6,
           "passwordPolicyCharacters": []
         },
         "mfaConfiguration": "OFF",

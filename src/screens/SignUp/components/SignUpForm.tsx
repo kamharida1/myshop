@@ -2,16 +2,13 @@ import { ActivityIndicator, Alert, StyleSheet, Text, } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { View, Button } from 'react-native-ui-lib'
 import * as SecureStore from 'expo-secure-store'
-
-
 import { colors } from '../../../constants'
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
-import Google from '../../../../assets/svg/Google'
-import { AppInput, AppButton, FloatingInput, Separator, Space, Txt, Icon } from '../../../components'
-import { LinearGradient } from 'expo-linear-gradient'
+import { AppInput, Space, Txt } from '../../../components'
 import { navio } from '../../../navigator'
+import { Auth } from 'aws-amplify'
 
 const validationSchema = yup.object().shape({
   firstName: yup
@@ -43,31 +40,8 @@ const ButtonSpace = 15;
 
 export const SignUpForm = () => {
   const [loading, setLoading] = useState(false)
-  // const { setIsLoggedIn } = React.useContext(AuthContext)
-
-  useEffect(() => {
-    setLoading(true)
-    const key = async (): Promise<void> => {
-      try {
-        const email = await SecureStore.getItemAsync('authKeyEmail')
-        const password = await SecureStore.getItemAsync('authKeyPassword')
-        const credentials = { email, password }
-        
-        if (credentials) {
-          const { email, password } = credentials;
-          const user = await Auth.signIn(email, password);
-          setLoading(false);
-          user && setIsLoggedIn(true)
-        } else {
-          setLoading(false)
-        }
-      } catch (err) {
-        console.log('error', err);
-        setLoading(false);
-      }
-    };
-    key();
-  }, []);
+  const [hidePassword, setHidePassword] = useState(true);
+  const [error, setError] = useState('')
   
   const signUp = ({ email }) => {
     return new Promise((resolve, reject) => {
@@ -80,6 +54,51 @@ export const SignUpForm = () => {
     })
   }
 
+  const _onPress = async (values: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+  }): Promise<void> => {
+    const { firstName, lastName, email, password, confirmPassword, } = values
+    Alert.alert(JSON.stringify(values))
+    // if (password !== confirmPassword) {
+    //   setError('Passwords do not match!')
+    // } else {
+    //   setLoading(true);
+    //   setError('');
+    //   try {
+    //     const user = await Auth.signUp({
+    //       username: email,
+    //       password: password,
+    //       attributes: {
+    //         email: email,
+    //         givenName: firstName,
+    //         familyName: lastName
+    //       }
+    //     });
+    //     await SecureStore.setItemAsync('authKeyEmail', email)
+    //     await SecureStore.setItemAsync('authKeyPassword', password)
+    //     user && navio.push('ConfirmSignUp', { email, password } )
+    //     setLoading(false);
+    //   } catch (err: {}) {
+    //     setLoading(false);
+    //     if (err.code === 'UserNotConfirmedException') {
+    //       setError('Account not verified yet');
+    //     } else if (err.code === 'PasswordResetRequiredException') {
+    //       setError('Existing user found. Please reset your password');
+    //     } else if (err.code === 'NotAuthorizedException') {
+    //       setError('Forgot Password');
+    //     } else if (err.code === 'UserNotFoundException') {
+    //       setError('User does not exist!')
+    //     } else {
+    //       setError(err.code)
+    //     }
+    //   }
+    // }
+  }
+
   return (
     <>
       <Formik
@@ -90,19 +109,7 @@ export const SignUpForm = () => {
           password: '',
           confirmPassword: ''
         }}
-        onSubmit={(values, actions) => {
-          signUp({ email: values.email})
-            .then(() => {
-              Alert.alert(JSON.stringify(values))
-              navio.pushStack('MainStack')
-            })
-            .catch(error => {
-              actions.setFieldError("general", error.message)
-            })
-            .finally(() => {
-              actions.setSubmitting(false)
-            })
-        }}
+        onSubmit={(values): Promise<void> => _onPress(values)}
         validationSchema={validationSchema}
       >
         {formikProps => (
@@ -114,6 +121,7 @@ export const SignUpForm = () => {
               formikKey="lastName"
               placeholder="your given name"
               autoCorrect={false}
+              icon="person-fill"
             />
             <AppInput
               label="Last Name"
@@ -121,6 +129,7 @@ export const SignUpForm = () => {
               formikKey="lastName"
               placeholder="your family name"
               autoCorrect={false}
+              icon="person-fill"
             />
             <AppInput
               label="Email"
@@ -132,22 +141,31 @@ export const SignUpForm = () => {
               autoCorrect={false}
               keyboardType="email-address"
               textContentType="emailAddress"
+              icon="mail"
             />
             <AppInput
               label="Password"
               formikProps={formikProps}
               formikKey="password"
+              icon="lock"
+              isPassword
               placeholder="password"
-              secureTextEntry
+              secureTextEntry={hidePassword}
+              hidePassword={hidePassword}
+              setHidePassword={setHidePassword}  
               textContentType="password"
               autoCapitalize="none"
             />
             <AppInput
               label="Confirm Password"
               formikProps={formikProps}
-              formikKey="confirmPassword"
+              formikKey="connfirmPassword"
+              icon="lock"
+              isPassword
               placeholder="confirm password"
-              secureTextEntry
+              secureTextEntry={hidePassword}
+              hidePassword={hidePassword}
+              setHidePassword={setHidePassword}  
               textContentType="password"
               autoCapitalize="none"
             />
@@ -211,7 +229,7 @@ export const SignUpForm = () => {
                       justifyContent: 'center',
                       flexDirection: 'row'
                       }}
-                      onPress={()=>navio.push('MainStack')}
+                      onPress={formikProps.handleSubmit}
                   >
                     <Txt
                       title={'Agree & Continue'}

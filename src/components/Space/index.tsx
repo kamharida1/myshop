@@ -3,11 +3,15 @@ import React, { memo } from 'react'
 
 interface SpaceT {
   height?: number
+  width?: number
 }
 
-const Space = memo<SpaceT>(({ height }) => {
+const Space = memo<SpaceT>(({ height, width }) => {
   return (
-    <View style={{ height: height || 30 }} />
+    <View style={{
+      height: height || 30,
+      width: width || 20
+    }} />
   )
 })
 

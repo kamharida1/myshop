@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "myshopec0ee831_identitypool_ec0ee831",
+    "identityPoolName": "testAuthIdentityPool",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "myshopec0ee831",
-    "userPoolName": "myshopec0ee831_userpool_ec0ee831",
+    "resourceNameTruncated": "myshopd2e3bee3",
+    "userPoolName": "myshop",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -17,31 +17,33 @@
     "emailVerificationSubject": "Your verification code",
     "emailVerificationMessage": "Your verification code is {####}",
     "defaultPasswordPolicy": false,
-    "passwordPolicyMinLength": 8,
+    "passwordPolicyMinLength": 6,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
-      "email"
+      "email",
+      "family_name",
+      "given_name"
     ],
     "aliasAttributes": [],
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
-    "userpoolClientWriteAttributes": [
-      "email"
-    ],
-    "userpoolClientReadAttributes": [
-      "email"
-    ],
-    "userpoolClientLambdaRole": "myshopec0ee831_userpoolclient_lambda_role",
+    "userpoolClientWriteAttributes": [],
+    "userpoolClientReadAttributes": [],
+    "userpoolClientLambdaRole": "myshopd2e3bee3_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "ec0ee831",
-    "resourceName": "myshopec0ee831",
+    "sharedId": "d2e3bee3",
+    "resourceName": "myshop",
     "authSelections": "identityPoolAndUserPool",
-    "useDefault": "default",
+    "serviceName": "Cognito",
     "usernameAttributes": [
       "email"
     ],
+    "useDefault": "manual",
+    "userPoolGroups": false,
     "userPoolGroupList": [],
-    "serviceName": "Cognito",
+    "adminQueries": false,
+    "thirdPartyAuth": false,
+    "authProviders": [],
     "usernameCaseSensitive": false,
     "useEnabledMfas": true
   }

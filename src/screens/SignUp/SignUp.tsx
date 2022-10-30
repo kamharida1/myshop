@@ -15,6 +15,7 @@ import { colors, gray } from '../../constants';
 import { Avatar } from '../../components/Avatar';
 import { Txt } from '../../components/Txt';
 import { SignUpForm } from './components';
+import { FakeSignUpForm } from './components';
 
 export type SignUpProps = {
   type?: 'push';
@@ -51,7 +52,7 @@ export const SignUp: NavioScreen<SignUpProps> = observer(({type = 'push'}) => {
   return (
     <View flex style={{backgroundColor: 'white'}}>
       <Space height={150} />
-      <SignUpForm />
+      <FakeSignUpForm />
       {/* <BasicForm /> */}
     </View>
   );

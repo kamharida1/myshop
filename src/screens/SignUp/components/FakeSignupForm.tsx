@@ -16,6 +16,14 @@ import { values } from 'lodash'
 import { Auth } from 'aws-amplify'
 
 const validationSchema = yup.object().shape({
+  firstName: yup
+    .string()
+    .required('Name is required')
+    .label('Firstname'),
+  lastName: yup
+    .string()
+    .required('Name is required')
+    .label('Lastname'),
   email: yup
     .string().
     label('Email')
@@ -26,12 +34,16 @@ const validationSchema = yup.object().shape({
     .label('Password')
     .required()
     .min(2, 'Seems a bit short...')
-    .max(10, 'We prefer insecure system, try a shorter password')
+    .max(10, 'We prefer insecure system, try a shorter password'),
+  confirmPassword: yup.string()
+    .oneOf([yup.ref('password')], 'Passwords do not match')
+    .required('Confirm password is required')
+    .label('Confirm Password'),
 })
 
 const ButtonSpace = 15;
 
-export const SignInForm = () => {
+export const FakeSignUpForm = () => {
   const [loading, setLoading] = useState(false)
   const [hidePassword, setHidePassword] = useState(true);
   // const { setIsLoggedIn } = React.useContext(AuthContext)
@@ -64,28 +76,28 @@ export const SignInForm = () => {
     key();
   }, []);
   
-  const signIn = ({ email }) => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (email === 'a@a.com') {
-          reject(new Error("You playin' with that fake email."))
+  const signUp = async ({firstName, lastName, email, password }) => {
+    const response = await Auth.signUp(
+      {
+        username: email,
+        password,
+        attributes: {
+          email,
+          given_name: firstName,
+          family_name: lastName
         }
-        resolve(true)
-      }, 1000)
-    })
-  }
-  const _signIn = async (data) => {
-    const response = await Auth.signIn(data.email, data.password);
-    console.log(response)
+      });
+      console.log(response)
+    
   }
 
   return (
     <KeyboardAvoidingWrapper>
       <Formik
-        initialValues={{ email: '', password: '' }}
+        initialValues={{ firstName:'', lastName: '' ,email: '', password: '', confirmPassword:'', }}
         onSubmit={(values, actions) => {
-          const {email, password } = values
-          _signIn({ email, password})
+          const {firstName, lastName, email, password} = values
+          signUp({ firstName, lastName, email, password})
             .then(() => {
               Alert.alert(JSON.stringify(values))
               pushStack()
@@ -102,6 +114,22 @@ export const SignInForm = () => {
         {formikProps => (
           <>
             <View style={styles.formContainer}>
+              <AppInput
+              label="First Name"
+              formikProps={formikProps}
+              formikKey="firstName"
+              placeholder="your given name"
+              autoCorrect={false}
+              icon="person-fill"
+            />
+            <AppInput
+              label="Last Name"
+              formikProps={formikProps}
+              formikKey="lastName"
+              placeholder="your family name"
+              autoCorrect={false}
+              icon="person-fill"
+            />
             <AppInput
               label="Email"
               formikProps={formikProps}
@@ -126,8 +154,66 @@ export const SignInForm = () => {
               setHidePassword={setHidePassword}  
               textContentType="password"
               autoCapitalize="none"
+              />
+              <AppInput
+              label="Confirm Password"
+              formikProps={formikProps}
+              formikKey="confirmPassword"
+              icon="lock"
+              isPassword
+              placeholder="confirm password"
+              secureTextEntry={hidePassword}
+              hidePassword={hidePassword}
+              setHidePassword={setHidePassword}  
+              textContentType=" confirmpassword"
+              autoCapitalize="none"
             />
-            <Space height={20} />
+              <Space height={20} />
+              <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexWrap: 'wrap',
+                marginHorizontal: 13
+              }}
+            >
+              <Txt
+                title={`By signing up, you agree to our `}
+                textStyle={{
+                  fontSize: 13,
+                  color: colors.coolGray[500],
+                  fontFamily: 'airbnb-regular'
+                }}
+              />
+              <Button
+                label={`Terms of Service ${ ' '}`}
+                link
+                labelStyle={{
+                  fontFamily: 'airbnb-regular',
+                  fontSize: 13,
+                  color: colors.blue[500],
+                }}
+              />
+              <Txt
+                title={`and ${' '}`}
+                textStyle={{
+                  fontSize: 13,
+                  color: colors.coolGray[500],
+                  fontFamily: 'airbnb-regular'
+                }}
+              />
+              <Button
+                label={`Privacy Policy.`}
+                link
+                labelStyle={{
+                  fontFamily: 'airbnb-regular',
+                  fontSize: 13,
+                  color: colors.blue[500],
+                }}
+              />
+            </View>  
+            <Space height={25} />
             {formikProps.isSubmitting ? (
               <ActivityIndicator />
             ): (
@@ -159,102 +245,6 @@ export const SignInForm = () => {
             )}
             </View>
             <Space height={10} />
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginHorizontal: 15 }}>
-                <Separator viewStyle={{ width: '45%' }} />
-                <Txt
-                  title='or'
-                  h7
-                  textStyle={{
-                    marginHorizontal: 10,
-                    fontSize: 16,
-                    color: colors.warmGray[200],
-    
-                  }} /> 
-                  <Separator viewStyle={{ width: '45%' }} />
-            </View>
-            <Space height={40} />
-            <View marginH-s4>
-            <Button
-              style={{
-                height: 45,
-                marginBottom: ButtonSpace,
-                borderRadius: 4,
-                backgroundColor: colors.blue[600],
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexDirection: 'row'
-              }}
-            >
-              <Icon
-                name="facebook"
-                size={22}
-                color= {colors.warmGray[50]}
-                style={{ marginRight: 7 }}
-              />
-              <Txt
-                title={'Continue with Facebook'}
-                textStyle={{
-                  fontFamily: 'airbnb-bold',
-                  color: 'white',
-                  fontSize: 16
-                }}
-              />
-              </Button>
-              <Space height={10} />
-            <Button
-              style={{
-                height: 45,
-                marginBottom: ButtonSpace,
-                borderRadius: 4,
-                backgroundColor: 'white',
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexDirection: 'row',
-                shadowRadius: 5,
-                shadowOpacity: 0.2,
-                shadowOffset: { width: 2, height: 0}
-              }}
-              outline
-              outlineColor={colors.dark[700]}
-            >
-              <Google style={{ marginRight: 7}} />
-              <Txt
-                title={'Continue with Google'}
-                textStyle={{
-                  fontFamily: 'airbnb-bold',
-                  color: 'black',
-                  fontSize: 16
-                }}
-              />
-              </Button>
-              <Space height={10} />
-            <Button
-              style={{
-                height: 45,
-                marginBottom: ButtonSpace,
-                borderRadius: 4,
-                backgroundColor: colors.dark[50],
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexDirection: 'row'
-              }}
-            >
-              <Icon
-                name="apple"
-                size={22}
-                color= {colors.warmGray[50]}
-                style={{ marginRight: 7 }}
-              />
-              <Txt
-                title={'Continue with Apple'}
-                textStyle={{
-                  fontFamily: 'airbnb-bold',
-                  color: 'white',
-                  fontSize: 16
-                }}
-              />
-            </Button>
-      </View>
           </>
         )}
       </Formik>

@@ -7,6 +7,7 @@ import { Example } from '../screens/Example';
 import { Landing } from '../screens/Landing';
 import { SignIn } from '../screens/SignIn';
 import { SignUp } from '../screens/SignUp';
+import { ConfirmSignUp } from '../screens/ConfirmSignUp';
 
 import {useAppearance} from '../utils/hooks';
 import {screenDefaultOptions, tabDefaultOptions, getTabBarIcon} from '../utils/designSystem';
@@ -20,6 +21,7 @@ export const navio = Navio.build({
     Main,
     Settings,
     Example,
+    ConfirmSignUp,
     Playground: {
       component: Playground,
       options: () => ({
@@ -28,7 +30,7 @@ export const navio = Navio.build({
     },
   },
   stacks: {
-    AuthStack: [ 'Landing', 'SignIn', 'SignUp',],
+    AuthStack: [ 'Landing','SignUp','ConfirmSignUp', 'SignIn',],
     MainStack: ['Main', 'Example'],
     ExampleStack: ['Example'],
   },

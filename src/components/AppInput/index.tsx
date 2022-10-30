@@ -1,38 +1,76 @@
-import { StyleSheet, Text, View, TextInput } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Pressable } from 'react-native'
 import React from 'react'
+import { Octicons, Fontisto, Ionicons } from '@expo/vector-icons';
+
 import {colors} from '../../constants'
 
 import { Space } from '../Space'
+import { color } from 'react-native-reanimated';
 
-const AppInput = ({ label, formikProps, formikKey, ...rest }) => {
-  // const inputStyles = {
-  //   borderWidth: 1,
-  //   borderColor: colors.gray[500],
-  //   borderRadius: 8,
-  //   padding: 15,
-  //   marginVertical: 5,
-  //   fontFamily: 'airbnb-medium',
-  //   fontSize: 16
-  //   // marginBottom: 3
-  // };
-
-  // if (formikProps.touched[formikKey] && formikProps.errors[formikKey]) {
-  //   inputStyles.borderColor = "red"
-  // }
+const AppInput = ({ label, icon, isPassword, hidePassword, setHidePassword, formikProps, formikKey, ...rest }) => {
 
   return (
-    <View style={styles.attributeContainer}>
-      <Text style={{marginBottom: 3,color: colors.warmGray[600],fontFamily:'airbnb-medium', fontSize: 16}}>{label}</Text>
-      <View style={styles.textInputContainer}>
-        <TextInput
-          style={styles.textInput}
-          onChangeText={formikProps.handleChange(formikKey)}
-          onBlur={formikProps.handleBlur(formikKey)}
-          {...rest}
-        />
+    // <View style={styles.attributeContainer}>
+    //   <Text style={{marginBottom: 3,color: colors.warmGray[600],fontFamily:'airbnb-medium', fontSize: 16}}>{label}</Text>
+    //   <View style={styles.textInputContainer}>
+    //     <TextInput
+    //       style={styles.textInput}
+    //       onChangeText={formikProps.handleChange(formikKey)}
+    //       onBlur={formikProps.handleBlur(formikKey)}
+    //       {...rest}
+    //     />
+    //   </View>
+    //    <Space height={1} />
+    //    <Text style={{ color: 'red', fontFamily: 'airbnb-medium' }}>{formikProps.touched[formikKey] && formikProps.errors[formikKey]}</Text>
+    // </View>
+    <View>
+      <View
+        style={{
+          left: 15,
+          top: 43,
+          position: 'absolute',
+          zIndex: 1
+        }}
+      >
+        <Octicons name={icon} size={25} color={colors.dark[400]} style={{fontWeight: '500'}} />
       </View>
-       <Space height={1} />
-       <Text style={{ color: 'red', fontFamily: 'airbnb-medium' }}>{formikProps.touched[formikKey] && formikProps.errors[formikKey]}</Text>
+      <Text style={{margin: 5, color: colors.warmGray[600],fontFamily:'airbnb-medium', fontSize: 14 }}>{label}</Text>
+      <TextInput
+        onChangeText={formikProps.handleChange(formikKey)}
+        onBlur={formikProps.handleBlur(formikKey)}
+        style={{
+          fontFamily: 'airbnb-regular',
+          backgroundColor: '#fff',
+          borderColor: colors.dark[400],
+          borderWidth: StyleSheet.hairlineWidth,
+          padding: 15,
+          paddingLeft: 53,
+          paddingRight: 53,
+          borderRadius: 5,
+          fontSize: 16,
+          height: 50,
+          marginVertical: 3,
+          marginBottom: 10,
+          color: colors.gray[800]
+        }}
+        {...rest}
+      />
+      {isPassword && (
+        <Pressable
+          style={{
+            right: 20,
+            top: 43,
+            position: 'absolute',
+            zIndex: 1
+          }}
+          onPress={() => {
+            setHidePassword(!hidePassword)
+          }}
+        >
+          <Ionicons name={hidePassword ? 'md-eye-off' : 'md-eye'} size={25} color={colors.dark[400]} />
+        </Pressable>
+      )}
+      <Text style={{ color: 'red', fontFamily: 'airbnb-medium' }}>{formikProps.touched[formikKey] && formikProps.errors[formikKey]}</Text>
     </View>
   )
 }
