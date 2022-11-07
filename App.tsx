@@ -21,6 +21,8 @@ import { AuthProvider } from './src/contexts/AuthContext';
 
 import {Amplify}  from 'aws-amplify';
 import awsconfig from './src/aws-exports';
+import AppNavigator from './src/AppNavigator';
+import { NavigationContainer } from '@react-navigation/native';
 
 Amplify.configure(awsconfig);
 
@@ -51,7 +53,9 @@ export default (): JSX.Element => {
       <GestureHandlerRootView style={{flex: 1}}>
         <SSProvider>
           <StatusBar style={getStatusBarStyle()} backgroundColor={getStatusBarBGColor()} />
-          <AppRoot navigationContainerProps={{theme: getNavigationTheme()}} />
+          <AuthProvider>
+            <AppNavigator />
+          </AuthProvider>
         </SSProvider>
       </GestureHandlerRootView>
     </AuthProvider>

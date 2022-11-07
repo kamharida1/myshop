@@ -1,7 +1,7 @@
 import { StyleSheet,} from 'react-native'
 import React from 'react'
 import { Text, View } from 'react-native-ui-lib'
-import { Icon, Space, Txt } from '../../../components'
+import { Icon, Space, Txt } from '../../../../components'
 
 
 const Header = () => {

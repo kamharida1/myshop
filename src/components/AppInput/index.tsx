@@ -34,24 +34,27 @@ const AppInput = ({ label, icon, isPassword, hidePassword, setHidePassword, form
       >
         <Octicons name={icon} size={25} color={colors.dark[400]} style={{fontWeight: '500'}} />
       </View>
-      <Text style={{margin: 5, color: colors.warmGray[600],fontFamily:'airbnb-medium', fontSize: 14 }}>{label}</Text>
+      <Text style={{margin: 5, color: colors.warmGray[800],fontFamily:'airbnb-medium', fontSize: 14 }}>{label}</Text>
       <TextInput
         onChangeText={formikProps.handleChange(formikKey)}
         onBlur={formikProps.handleBlur(formikKey)}
         style={{
           fontFamily: 'airbnb-regular',
-          backgroundColor: '#fff',
-          borderColor: colors.dark[400],
-          borderWidth: StyleSheet.hairlineWidth,
+          backgroundColor: colors.gray[50],
+          borderColor: colors.dark[700],
+          borderWidth: 1,
           padding: 15,
           paddingLeft: 53,
           paddingRight: 53,
-          borderRadius: 5,
+          borderRadius: 6,
           fontSize: 16,
           height: 50,
           marginVertical: 3,
           marginBottom: 10,
-          color: colors.gray[800]
+          color: colors.dark[50],
+          shadowRadius: 9,
+          shadowOpacity: 0.1,
+          shadowOffset: { width: 2, height: 0 },
         }}
         {...rest}
       />

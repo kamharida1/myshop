@@ -2,12 +2,12 @@ import { ActivityIndicator, Alert, StyleSheet, Text, } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { View, Button } from 'react-native-ui-lib'
 import * as SecureStore from 'expo-secure-store'
-import { colors } from '../../../constants'
+import { colors } from '../../../../constants'
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
-import { AppInput, Space, Txt } from '../../../components'
-import { navio } from '../../../navigator'
+import { AppInput, Space, Txt } from '../../../../components'
+import { navio } from '../../../../navigator'
 import { Auth } from 'aws-amplify'
 
 const validationSchema = yup.object().shape({
@@ -253,7 +253,7 @@ export const SignUpForm = () => {
 
 const styles = StyleSheet.create({
   formContainer: {
-    backgroundColor: colors.light[200],
+    //backgroundColor: colors.dark[500],
     borderColor: '#D6D7DA',
     borderWidth: 2,
     borderRadius: 10,

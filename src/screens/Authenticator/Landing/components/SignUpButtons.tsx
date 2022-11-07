@@ -2,11 +2,11 @@ import { TouchableOpacity, StyleSheet, Text, View } from 'react-native'
 import React, { memo } from 'react'
 import { useNavigation } from "@react-navigation/native";
 
-import Apple from '../../../../assets/svg/Apple'
-import Google from '../../../../assets/svg/Google'
-import Facebook from '../../../../assets/svg/Facebook'
-import Mail from '../../../../assets/svg/Mail'
-import {services, useServices} from '../../../services';
+import Apple from '../../../../../assets/svg/Apple'
+import Google from '../../../../../assets/svg/Google'
+import Facebook from '../../../../../assets/svg/Facebook'
+import Mail from '../../../../../assets/svg/Mail'
+import {services, useServices} from '../../../../services';
 
 // import { colors } from '../../../const'
 

@@ -4,16 +4,17 @@ import { View, Button } from 'react-native-ui-lib'
 import * as SecureStore from 'expo-secure-store'
 
 
-import { colors } from '../../../constants'
+import { colors, onScreen } from '../../../../constants'
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
-import Google from '../../../../assets/svg/Google'
-import { AppInput, AppButton, FloatingInput, Separator, Space, Txt, Icon, KeyboardAvoidingWrapper } from '../../../components'
+import Google from '../../../../../assets/svg/Google'
+import { AppInput, AppButton, FloatingInput, Separator, Space, Txt, Icon, KeyboardAvoidingWrapper } from '../../../../components'
 import { LinearGradient } from 'expo-linear-gradient'
-import { useServices } from '../../../services'
+import { useServices } from '../../../../services'
 import { values } from 'lodash'
 import { Auth } from 'aws-amplify'
+import { useNavigation } from '@react-navigation/native'
 
 const validationSchema = yup.object().shape({
   firstName: yup
@@ -46,75 +47,60 @@ const ButtonSpace = 15;
 export const FakeSignUpForm = () => {
   const [loading, setLoading] = useState(false)
   const [hidePassword, setHidePassword] = useState(true);
-  // const { setIsLoggedIn } = React.useContext(AuthContext)
-  const {t, navio} = useServices();
-  // const {ui} = useStores();
-  const pushStack = () => navio.pushStack('MainStack');
-
-
-  useEffect(() => {
-    setLoading(true)
-    const key = async (): Promise<void> => {
-      try {
-        const email = await SecureStore.getItemAsync('authKeyEmail')
-        const password = await SecureStore.getItemAsync('authKeyPassword')
-        const credentials = { email, password }
-        
-        if (credentials) {
-          const { email, password } = credentials;
-          const user = await Auth.signIn(email, password);
-          setLoading(false);
-          user && setIsLoggedIn(true)
-        } else {
-          setLoading(false)
-        }
-      } catch (err) {
-        console.log('error', err);
-        setLoading(false);
-      }
-    };
-    key();
-  }, []);
+  const [error, setError] = useState('')
   
-  const signUp = async ({firstName, lastName, email, password }) => {
-    const response = await Auth.signUp(
-      {
-        username: email,
-        password,
-        attributes: {
-          email,
-          given_name: firstName,
-          family_name: lastName
+  const navigation = useNavigation()
+
+  const signUp = async (values: { firstName: string, lastName: string, email: string, password: string, confirmPassword: string }) => {
+    const { firstName, lastName, email, password, confirmPassword } = values
+    if (password !== confirmPassword) {
+      setError('Passwords do not match!');
+    } else {
+      setLoading(true);
+      setError('');
+      try {
+        const user = await Auth.signUp(
+          {
+            username: email,
+            password,
+            attributes: {
+              email,
+              given_name: firstName,
+              family_name: lastName
+            }
+          });
+        await SecureStore.setItemAsync('authKeyEmail', email)
+        await SecureStore.setItemAsync('AuthKeyPassword', password)
+        user && onScreen('CONFIRM_SIGN_UP', navigation, { email, password })();
+        setLoading(false);
+      } catch (err: any) {
+        setLoading(false);
+        if (err.code === 'UserNotConfirmedException') {
+          setError('Account not verified yet');
+        } else if (err.code === 'PasswordResetRequiredException') {
+          setError('Existing user found. Please reset your password');
+        } else if (err.code === 'NotAuthorizedException') {
+          setError('Forgot Password?');
+        } else if (err.code === 'UserNotFoundException') {
+          setError('User does not exist!');
+        } else {
+          setError(err.code);
         }
-      });
-      console.log(response)
-    
+      }
+    }
   }
 
   return (
     <KeyboardAvoidingWrapper>
       <Formik
         initialValues={{ firstName:'', lastName: '' ,email: '', password: '', confirmPassword:'', }}
-        onSubmit={(values, actions) => {
-          const {firstName, lastName, email, password} = values
-          signUp({ firstName, lastName, email, password})
-            .then(() => {
-              Alert.alert(JSON.stringify(values))
-              pushStack()
-            })
-            .catch(error => {
-              actions.setFieldError("general", error.message)
-            })
-            .finally(() => {
-              actions.setSubmitting(false)
-            })
-        }}
+        onSubmit={(values, actions) => signUp(values)}
         validationSchema={validationSchema}
       >
         {formikProps => (
           <>
-            <View style={styles.formContainer}>
-              <AppInput
+            <View padding-20 flex bg-bgColor>
+            <AppInput
               label="First Name"
               formikProps={formikProps}
               formikKey="firstName"
@@ -223,7 +209,7 @@ export const FakeSignUpForm = () => {
                       height: 45,
                       marginBottom: ButtonSpace,
                       borderRadius: 4,
-                      backgroundColor: colors.pink[800],
+                      backgroundColor: colors.blue[600],
                       alignItems: 'center',
                       justifyContent: 'center',
                       flexDirection: 'row'
@@ -231,7 +217,7 @@ export const FakeSignUpForm = () => {
                       onPress={formikProps.handleSubmit}
                   >
                     <Txt
-                      title={'Log in'}
+                      title={'Agree & Continue'}
                       textStyle={{
                         fontFamily: 'airbnb-bold',
                         color: 'white',
@@ -254,7 +240,7 @@ export const FakeSignUpForm = () => {
 
 const styles = StyleSheet.create({
   formContainer: {
-    backgroundColor: colors.light[200],
+    backgroundColor: colors.warmGray[100],
     borderColor: '#D6D7DA',
     borderWidth: 2,
     borderRadius: 10,

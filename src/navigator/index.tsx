@@ -4,10 +4,10 @@ import {Main} from '../screens/Main';
 import {Playground} from '../screens/Playground';
 import {Settings} from '../screens/Settings';
 import { Example } from '../screens/Example';
-import { Landing } from '../screens/Landing';
-import { SignIn } from '../screens/SignIn';
-import { SignUp } from '../screens/SignUp';
-import { ConfirmSignUp } from '../screens/ConfirmSignUp';
+import { Landing } from '../screens/Authenticator/Landing';
+import { SignIn } from '../screens/Authenticator/SignIn';
+import { SignUp } from '../screens/Authenticator/SignUp';
+import { ConfirmSignUp } from '../screens/Authenticator/ConfirmSignUp';
 
 import {useAppearance} from '../utils/hooks';
 import {screenDefaultOptions, tabDefaultOptions, getTabBarIcon} from '../utils/designSystem';
@@ -30,7 +30,7 @@ export const navio = Navio.build({
     },
   },
   stacks: {
-    AuthStack: [ 'Landing','SignUp','ConfirmSignUp', 'SignIn',],
+    AuthStack: [ 'SignUp','ConfirmSignUp', 'Landing','SignIn',],
     MainStack: ['Main', 'Example'],
     ExampleStack: ['Example'],
   },

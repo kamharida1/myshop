@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { colors } from '../../../constants';
+import { colors } from '../../../../constants';
 
 export const ScreenContainer = styled.SafeAreaView`
   flex: 1;
@@ -12,10 +12,6 @@ export const OTPInputContainer = styled.View`
   align-items: center
 `;
 
-// export const TextInputHidden = styled.TextInput`
-//   position: absolute;
-//   opacity: 0;
-// `;
 export const TextInputHidden = styled.TextInput`
   width: 300px;
   border-color: ${colors.warmGray[300]};
@@ -38,15 +34,11 @@ export const SplitBoxes = styled.View`
   border-width: 2px;
   border-radius: 5px;
   padding: 12px;
-  min-width: 50px;
+  min-width: 40px;
 `;
 
 export const SplitBoxesFocused = styled(SplitBoxes)`
-  border-width: 2px;
-  border-radius: 5px;
-  padding: 12px;
-  min-width: 50px;
-  border-color: #ecdbba;
+  border-color: blue;
   background-color: grey;
 `;
 

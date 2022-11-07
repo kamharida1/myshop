@@ -11,7 +11,7 @@ interface Props {
 
 const OTPInput: React.FC<Props> = ({ code, setCode, maximumLength, setIsPinReady }) => {
   const [isInputBoxFocused, setIsInputBoxFocused] = useState(false)
-  const inputRef = useRef<null | TextInput>(null)
+  const inputRef = useRef<TextInput>(null)
   const boxArray = new Array(maximumLength).fill(0);
 
   useEffect(() => {
@@ -43,7 +43,7 @@ const OTPInput: React.FC<Props> = ({ code, setCode, maximumLength, setIsPinReady
 
   const handleOnPress = () => {
     setIsInputBoxFocused(true);
-    inputRef?.current?.focus()
+    inputRef.current?.focus();
   };
 
   const handleOnBlur = () => { 
@@ -52,7 +52,7 @@ const OTPInput: React.FC<Props> = ({ code, setCode, maximumLength, setIsPinReady
 
   return (
     <OTPInputContainer>
-      <SplitOTPBoxesContainer>{boxArray.map(boxDigit)}</SplitOTPBoxesContainer>
+      <SplitOTPBoxesContainer onPress={handleOnPress}>{boxArray.map(boxDigit)}</SplitOTPBoxesContainer>
       <TextInputHidden
         value={code}
         onChangeText={setCode}
@@ -60,6 +60,7 @@ const OTPInput: React.FC<Props> = ({ code, setCode, maximumLength, setIsPinReady
         ref={inputRef}
         onBlur={handleOnBlur}
         keyboardType="number-pad"
+        autoFocus
       />
     </OTPInputContainer>
   )

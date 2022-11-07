@@ -1,53 +1,41 @@
-import React, {useEffect, useLayoutEffect, useState} from 'react';
-import { StyleSheet} from 'react-native';
-import { Button, View, Text} from 'react-native-ui-lib';
-import { observer } from 'mobx-react';
+import React, {ReactElement, useContext, useEffect, useLayoutEffect, useState} from 'react';
+import { ActivityIndicator, StyleSheet} from 'react-native';
+import { Button, View} from 'react-native-ui-lib';
 import * as SecureStore from 'expo-secure-store'
-import {useNavigation} from '@react-navigation/native';
-import {NavioScreen} from 'rn-navio';
 
-import {useServices} from '../../services';
-import {useAppearance} from '../../utils/hooks';
-import { Icon, Separator, Space } from '../../components';
-import { colors } from '../../constants';
-import { Txt } from '../../components/Txt';
-import Google from '../../../assets/svg/Google'
+import {useAppearance} from '../../../utils/hooks';
+import { Icon, Separator, Space } from '../../../components';
+import { colors, onScreen } from '../../../constants';
+import { Txt } from '../../../components/Txt';
+import Google from '../../../../assets/svg/Google'
 import { Auth } from 'aws-amplify';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../../AppNavigator';
+import { AuthContext } from '../../../contexts/AuthContext';
 
+type ProfileScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'LANDING'>
 
-
-export type LandingProps = {
-  type?: 'push';
-};
+type LandingT = {
+  navigation: ProfileScreenNavigationProp
+}
 
 const ButtonSpace = 15;
 
-export const Landing: NavioScreen<LandingProps> = observer(({type = 'push'}) => {
+export const Landing = ({ navigation }: LandingT): ReactElement=> {
   useAppearance(); // for Dark Mode
-  const navigation = useNavigation();
-  const {t, navio} = useServices();
-  // const {ui} = useStores();
+  const {setIsLoggedIn} = useContext(AuthContext)
   const [loading, setLoading] = useState(false)
 
-  // State
-
-  // Methods
-  const push = () => navio.push('SignIn', { type: 'push' });
-  const pushSignUp = () => navio.push('SignUp')
-  const goBack = () => navio.pop();
 
   const key = async (): Promise<void> => {
     setLoading(true);
     try {
-      const email = await SecureStore.getItemAsync('authKeyEmail')
+      const username = await SecureStore.getItemAsync('authKeyEmail')
       const password = await SecureStore.getItemAsync('authKeyPassword')
-      const credentials = { email, password }
-
+      const credentials = { username, password }
       if (credentials) {
-        const { email, password } = credentials;
-        const user = await Auth.signIn(email, password);
+        setIsLoggedIn(true)
         setLoading(false);
-        user && navio.pushStack('MainStack')
       } else {
         setLoading(false)
       }
@@ -70,8 +58,6 @@ export const Landing: NavioScreen<LandingProps> = observer(({type = 'push'}) => 
     });
   };
 
-  // UI Methods
-
   return (
     <View useSafeArea flex bg-bgColor>
       <View>
@@ -84,7 +70,7 @@ export const Landing: NavioScreen<LandingProps> = observer(({type = 'push'}) => 
             top: 20,
             left: 10,
           }}
-          onPress={goBack}
+          onPress={()=>{}}
         />
       </View>
       <Space height={150} />
@@ -182,7 +168,7 @@ export const Landing: NavioScreen<LandingProps> = observer(({type = 'push'}) => 
             justifyContent: 'center',
             flexDirection: 'row'
           }}
-          onPress={pushSignUp}
+          onPress={()=>onScreen('SIGN_UP', navigation)()}
         >
           <Txt
             title={'Sign up with email'}
@@ -209,7 +195,7 @@ export const Landing: NavioScreen<LandingProps> = observer(({type = 'push'}) => 
             fontFamily: 'airbnb-medium',
             fontSize: 17
           }}
-          onPress={push}
+          onPress={()=>onScreen('SIGN_IN', navigation)()}
         />
       </View>
       <Space height={50} />
@@ -278,7 +264,7 @@ export const Landing: NavioScreen<LandingProps> = observer(({type = 'push'}) => 
       </View>
     </View>
   );
-});
+};
 
 const styles = StyleSheet.create({
   loginContainer: {
@@ -291,10 +277,6 @@ const styles = StyleSheet.create({
   }
 })
 
-Landing.options = props => ({
-  // headerBackTitleStyle: false,
-  // title: `${"Log in or sign up"} ${(props?.route?.params as LandingProps)?.type ?? ''}`,
-  // headerLargeTitleStyle: { color: 'black', fontSize: 30, fontFamily: 'airbnb-bold', alignSelf: 'center' },
-  // headerStyle: { backgroundColor: 'rgba(255,255,255, 0.8)' },
+Landing.options = {
   headerShown: false
-});
+};
