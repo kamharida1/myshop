@@ -7,8 +7,7 @@ import {useAppearance} from '../../../utils/hooks';
 import { Icon, Separator, Space } from '../../../components';
 import { colors, onScreen } from '../../../constants';
 import { Txt } from '../../../components/Txt';
-import Google from '../../../../assets/svg/Google'
-import { Auth } from 'aws-amplify';
+import Google from '../../../../assets/svg/Google';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../../AppNavigator';
 import { AuthContext } from '../../../contexts/AuthContext';
@@ -26,13 +25,13 @@ export const Landing = ({ navigation }: LandingT): ReactElement=> {
   const {setIsLoggedIn} = useContext(AuthContext)
   const [loading, setLoading] = useState(false)
 
-
   const key = async (): Promise<void> => {
     setLoading(true);
     try {
       const username = await SecureStore.getItemAsync('authKeyEmail')
       const password = await SecureStore.getItemAsync('authKeyPassword')
       const credentials = { username, password }
+      console.log(credentials)
       if (credentials) {
         setIsLoggedIn(true)
         setLoading(false);
@@ -100,7 +99,7 @@ export const Landing = ({ navigation }: LandingT): ReactElement=> {
           <Txt
             title={'Continue with Facebook'}
             textStyle={{
-              fontFamily: 'airbnb-bold',
+              //fontFamily: 'airbnb-bold',
               color: 'white',
               fontSize: 16
             }}
@@ -126,7 +125,7 @@ export const Landing = ({ navigation }: LandingT): ReactElement=> {
           <Txt
             title={'Continue with Google'}
             textStyle={{
-              fontFamily: 'airbnb-bold',
+             // fontFamily: 'airbnb-bold',
               color: 'black',
               fontSize: 16
             }}
@@ -152,7 +151,7 @@ export const Landing = ({ navigation }: LandingT): ReactElement=> {
           <Txt
             title={'Continue with Apple'}
             textStyle={{
-              fontFamily: 'airbnb-bold',
+             // fontFamily: 'airbnb-bold',
               color: 'white',
               fontSize: 16
             }}
@@ -173,7 +172,7 @@ export const Landing = ({ navigation }: LandingT): ReactElement=> {
           <Txt
             title={'Sign up with email'}
             textStyle={{
-              fontFamily: 'airbnb-bold',
+             // fontFamily: 'airbnb-bold',
               color: 'black',
               fontSize: 16
             }}
@@ -192,7 +191,7 @@ export const Landing = ({ navigation }: LandingT): ReactElement=> {
           link
           linkColor={colors.blue[700]}
           labelStyle={{
-            fontFamily: 'airbnb-medium',
+           // fontFamily: 'airbnb-medium',
             fontSize: 17
           }}
           onPress={()=>onScreen('SIGN_IN', navigation)()}
@@ -204,7 +203,7 @@ export const Landing = ({ navigation }: LandingT): ReactElement=> {
           label="Learn more about AguBrothers"
           link
           labelStyle={{
-            fontFamily: 'airbnb-regular',
+           // fontFamily: 'airbnb-regular',
             fontSize: 13,
             color: colors.coolGray[500],
           }}
@@ -232,14 +231,14 @@ export const Landing = ({ navigation }: LandingT): ReactElement=> {
           textStyle={{
             fontSize: 13,
             color: colors.coolGray[500],
-            fontFamily: 'airbnb-regular'
+            //fontFamily: 'airbnb-regular'
           }}
         />
         <Button
           label={`Terms of Service ${ ' '}`}
           link
           labelStyle={{
-            fontFamily: 'airbnb-regular',
+            //fontFamily: 'airbnb-regular',
             fontSize: 13,
             color: colors.blue[500],
           }}
@@ -249,14 +248,14 @@ export const Landing = ({ navigation }: LandingT): ReactElement=> {
           textStyle={{
             fontSize: 13,
             color: colors.coolGray[500],
-            fontFamily: 'airbnb-regular'
+            //fontFamily: 'airbnb-regular'
           }}
         />
         <Button
           label={`Privacy Policy.`}
           link
           labelStyle={{
-            fontFamily: 'airbnb-regular',
+            //fontFamily: 'airbnb-regular',
             fontSize: 13,
             color: colors.blue[500],
           }}

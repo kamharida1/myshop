@@ -117,7 +117,7 @@ export const SignInForm = ({ navigation }: SignUpT): ReactElement => {
                         link
                         linkColor={colors.blue[500]}
                         label={'Forgot Password? '}
-                        labelStyle={{ fontFamily: 'airbnb-medium', alignSelf: 'center', marginBottom: 15}}
+                        labelStyle={{ alignSelf: 'center', marginBottom: 15}}
                         labelProps={{ fontSize: 17, color: colors.dark[100] }}
                         onPress = {onScreen('FORGOT', navigation, userInfo)}
                       />
@@ -141,7 +141,7 @@ export const SignInForm = ({ navigation }: SignUpT): ReactElement => {
                       <Txt
                         title={'Log in'}
                         textStyle={{
-                          fontFamily: 'airbnb-bold',
+                          //fontFamily: 'airbnb-bold',
                           color: 'white',
                           fontSize: 16
                         }}
@@ -188,7 +188,7 @@ export const SignInForm = ({ navigation }: SignUpT): ReactElement => {
                 <Txt
                   title={'Continue with Facebook'}
                   textStyle={{
-                    fontFamily: 'airbnb-bold',
+                    //fontFamily: 'airbnb-bold',
                     color: 'white',
                     fontSize: 16
                   }}
@@ -215,7 +215,7 @@ export const SignInForm = ({ navigation }: SignUpT): ReactElement => {
                 <Txt
                   title={'Continue with Google'}
                   textStyle={{
-                    fontFamily: 'airbnb-bold',
+                    //fontFamily: 'airbnb-bold',
                     color: 'black',
                     fontSize: 16
                   }}
@@ -242,7 +242,7 @@ export const SignInForm = ({ navigation }: SignUpT): ReactElement => {
                 <Txt
                   title={'Continue with Apple'}
                   textStyle={{
-                    fontFamily: 'airbnb-bold',
+                    //fontFamily: 'airbnb-bold',
                     color: 'white',
                     fontSize: 16
                   }}

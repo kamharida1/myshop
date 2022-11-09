@@ -78,11 +78,11 @@ export const ConfirmSignUp = ({route, navigation}: ConfirmSignUpT): ReactElement
   return (
     <ScreenContainer>
       <View marginV-20> 
-        <Text style={{fontSize: 25, fontFamily: 'airbnb-medium', marginVertical: 20, marginBottom: 40}}>
+        <Text style={{fontSize: 25, marginVertical: 20, marginBottom: 40}}>
           Enter Code
         </Text>
         <View centerV row>
-          <Text style={{ fontFamily: 'airbnb-medium',}}>
+          <Text>
             {'*'}{ ' '}We have sent the confirmation code to
             <Text>{' '}your email address</Text>
           </Text>
@@ -98,7 +98,6 @@ export const ConfirmSignUp = ({route, navigation}: ConfirmSignUpT): ReactElement
 
         <View row marginH-s4 marginT-50 centerV center>
         <Txt
-          h7
           title={`Didn\'t recieve the OTP? ${' '}`}
           textStyle={{marginRight: 3}}
         />
@@ -107,7 +106,7 @@ export const ConfirmSignUp = ({route, navigation}: ConfirmSignUpT): ReactElement
           link
           linkColor={colors.blue[700]}
           labelStyle={{
-            fontFamily: 'airbnb-bold',
+            //fontFamily: 'airbnb-bold',
             fontSize: 15,
             textTransform: 'uppercase'
           }}

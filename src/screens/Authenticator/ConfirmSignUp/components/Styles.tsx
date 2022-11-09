@@ -46,7 +46,7 @@ export const SplitBoxText = styled.Text`
   font-size: 20px;
   text-align: center;
   color: black;
-  font-family: airbnb-bold
+  //font-family: airbnb-bold
 `;
 
 export const ButtonContainer = styled.TouchableOpacity`
@@ -62,5 +62,5 @@ export const ButtonContainer = styled.TouchableOpacity`
 export const ButtonText = styled.Text`
  color: black;
  font-size: 20px;
- font-family: airbnb-bold
+ //font-family: airbnb-bold
 `;

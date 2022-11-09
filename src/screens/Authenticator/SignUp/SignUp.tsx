@@ -41,5 +41,5 @@ export const SignUp = ({navigation}: SignUpT): ReactElement=> {
 SignUp.options = {
   headerBackTitleStyle: false,
   title: 'Create an account',
-  headerLargeTitleStyle: { color: 'black', fontSize: 30, fontFamily: 'airbnb-bold', alignSelf: 'center' },
+  headerLargeTitleStyle: { color: 'black', fontSize: 30, alignSelf: 'center' },
 };

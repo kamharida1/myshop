@@ -9,10 +9,7 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 
 import Google from '../../../../../assets/svg/Google'
-import { AppInput, AppButton, FloatingInput, Separator, Space, Txt, Icon, KeyboardAvoidingWrapper } from '../../../../components'
-import { LinearGradient } from 'expo-linear-gradient'
-import { useServices } from '../../../../services'
-import { values } from 'lodash'
+import { AppInput, Space, Txt, KeyboardAvoidingWrapper } from '../../../../components'
 import { Auth } from 'aws-amplify'
 import { useNavigation } from '@react-navigation/native'
 
@@ -169,14 +166,14 @@ export const FakeSignUpForm = () => {
                 textStyle={{
                   fontSize: 13,
                   color: colors.coolGray[500],
-                  fontFamily: 'airbnb-regular'
+                  //fontFamily: 'airbnb-regular'
                 }}
               />
               <Button
                 label={`Terms of Service ${ ' '}`}
                 link
                 labelStyle={{
-                  fontFamily: 'airbnb-regular',
+                  //fontFamily: 'airbnb-regular',
                   fontSize: 13,
                   color: colors.blue[500],
                 }}
@@ -186,14 +183,14 @@ export const FakeSignUpForm = () => {
                 textStyle={{
                   fontSize: 13,
                   color: colors.coolGray[500],
-                  fontFamily: 'airbnb-regular'
+                  //fontFamily: 'airbnb-regular'
                 }}
               />
               <Button
                 label={`Privacy Policy.`}
                 link
                 labelStyle={{
-                  fontFamily: 'airbnb-regular',
+                 // fontFamily: 'airbnb-regular',
                   fontSize: 13,
                   color: colors.blue[500],
                 }}
@@ -219,7 +216,7 @@ export const FakeSignUpForm = () => {
                     <Txt
                       title={'Agree & Continue'}
                       textStyle={{
-                        fontFamily: 'airbnb-bold',
+                       // fontFamily: 'airbnb-bold',
                         color: 'white',
                         fontSize: 16
                       }}

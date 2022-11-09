@@ -1,31 +1,17 @@
 import { Keyboard, Pressable, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
 import { Button, View } from 'react-native-ui-lib';
-import { Formik } from 'formik';
-import * as yup from 'yup';
 
 import { colors } from '../../../../constants'
 import { KeyboardAvoidingWrapper, Txt } from '../../../../components';
 import { OTPInput } from './OTPInput';
 import { ButtonContainer, ButtonText } from './Styles';
-import { useAppearance } from '../../../../utils/hooks';
-import { useNavigation } from '@react-navigation/native';
-import { useServices } from '../../../../services';
 
 const ConfirmSignUpForm = () => {
   const [otpCode, setOTPCode] = useState("");
   const [isPinReady, setIsPinReady] = useState(false);
   const maximumCodeLength = 4;
-  useAppearance(); // for Dark Mode
-  const navigation = useNavigation();
-  const {t, navio} = useServices();
-  // const {ui} = useStores();
 
-  // State
-
-  // Methods
-  const push = () => navio.push('Example', {type: 'push'});
-  const pushStack = () => navio.pushStack('ExampleStack');
   return (
     <KeyboardAvoidingWrapper>
       <Pressable onPress={Keyboard.dismiss} style={{marginTop: 20}}>
@@ -38,7 +24,6 @@ const ConfirmSignUpForm = () => {
 
         <View row marginH-s4 marginT-50 centerV center>
         <Txt
-          h7
           title={`Didn\'t recieve the OTP? ${' '}`}
           textStyle={{marginRight: 3}}
         />
@@ -47,11 +32,11 @@ const ConfirmSignUpForm = () => {
           link
           linkColor={colors.blue[700]}
           labelStyle={{
-            fontFamily: 'airbnb-bold',
+            //fontFamily: 'airbnb-bold',
             fontSize: 15,
             textTransform: 'uppercase'
           }}
-          onPress={push}
+          onPress={()=>{}}
         />
       </View>
 
