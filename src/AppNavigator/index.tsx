@@ -38,7 +38,14 @@ const MockStack = () => {
         name="MOCK_DETAIL"
         component={MockDetail}
         options={{
-          headerShown: false
+          headerShown: false,
+          cardStyleInterpolator: ({current: {progress}}) => {
+            return {
+              cardStyle: {
+                opacity: progress
+              }
+            }
+          }
         }}
       />
     </SharedStack.Navigator>

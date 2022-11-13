@@ -3,6 +3,7 @@ import React from 'react'
 import { SimpleLineIcons } from '@expo/vector-icons'
 import { StatusBar } from 'expo-status-bar';
 import { data } from '../../config/data';
+import { SharedElement } from 'react-navigation-shared-element';
 
 const { width } = Dimensions.get('screen');
 const ITEM_WIDTH = width * 0.9;
@@ -34,14 +35,16 @@ const Mock = ({navigation}) => {
                 style={{ marginBottom: 14 }}
                 onPress={()=>navigation.navigate('MOCK_DETAIL', {item})}
               >
-                <Image
-                  style={{
-                    borderRadius: 14,
-                    width: ITEM_WIDTH,
-                    height: ITEM_HEIGHT,
-                  }}
-                  source={{uri: item.image_url}}
-                />
+                <SharedElement id={`item.${item.id}.image_url`}>
+                  <Image
+                    style={{
+                      borderRadius: 14,
+                      width: ITEM_WIDTH,
+                      height: ITEM_HEIGHT,
+                    }}
+                    source={{uri: item.image_url}}
+                  />
+                </SharedElement>
                 <View
                   style={{
                     position: 'absolute',

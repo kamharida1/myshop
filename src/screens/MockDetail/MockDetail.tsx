@@ -2,6 +2,7 @@ import { Dimensions, Image, ScrollView, StyleSheet, Text, View } from 'react-nat
 import React from 'react'
 
 import { SimpleLineIcons, MaterialCommunityIcons } from '@expo/vector-icons'
+import { SharedElement } from 'react-navigation-shared-element';
 
 const { height } = Dimensions.get('window');
 const ITEM_HEIGHT = height * 0.5;
@@ -10,16 +11,18 @@ const MockDetail = ({ navigation, route }) => {
   const { item } = route.params;
   return (
     <View style={{ flex: 1, backgroundColor: '#0f0f0f'}}>
-      <Image
-        source={{ uri: item.image_url }}
-        style={{
-          width: '100%',
-          height: ITEM_HEIGHT,
-          borderBottomLeftRadius: 20,
-          borderBottomRightRadius: 20
-        }}
-        resizeMode='cover'
-      />
+      <SharedElement id={`item.${item.id}.image_url`}>
+        <Image
+          source={{ uri: item.image_url }}
+          style={{
+            width: '100%',
+            height: ITEM_HEIGHT,
+            borderBottomLeftRadius: 20,
+            borderBottomRightRadius: 20
+          }}
+          resizeMode='cover'
+        />
+      </SharedElement>
       <MaterialCommunityIcons
         name='close'
         size={28}
@@ -107,7 +110,16 @@ const MockDetail = ({ navigation, route }) => {
     </View>
   )
 }
-
+MockDetail.sharedElements = route => {
+  const { item } = route.params
+  return [
+    {
+      id: `item.${item.id}.image_url`,
+      animation: 'move',
+      resize: 'clip'
+    }
+  ]
+}
 export { MockDetail }
 
 const styles = StyleSheet.create({})
