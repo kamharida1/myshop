@@ -130,16 +130,31 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   formField: {
-    borderWidth: 1,
+    //borderWidth: 1,
     padding: 12,
     paddingLeft: 20,
     paddingRight: 20,
     borderRadius: 20,
     borderColor: '#888888',
+    backgroundColor: '#EEEEEE',
     fontSize: 18,
     height: 50
   },
-  searchList: {},
-  searchListItem: {},
-  searchListItemText:{},
+  searchList: {
+    paddingLeft: 16
+  },
+  searchListItem: {
+    paddingTop: 16,
+    paddingBottom: 16,
+    borderBottomWidth: 1,
+    paddingRight: 16,
+    borderColor: '#DBDBDB',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  searchListItemText: {
+    fontSize: 20,
+    maxWidth: '85%'
+  },
 })

@@ -1,12 +1,15 @@
 import * as React from 'react'
 import {createNativeStackNavigator } from '@react-navigation/native-stack'
 import { SignIn, SignUp, Landing, ConfirmSignUp } from '../screens/Authenticator'
-import { Main } from '../screens'
+import { Main, Mock, MockDetail } from '../screens'
 import { colors } from '../constants'
+import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
+
 import { AuthContext } from '../contexts/AuthContext'
 import { NavigationContainer } from '@react-navigation/native'
 
-const Stack = createNativeStackNavigator()
+const Stack = createNativeStackNavigator();
+const SharedStack = createSharedElementStackNavigator();
 
 export type RootStackParamList = {
   LANDING: undefined
@@ -16,6 +19,30 @@ export type RootStackParamList = {
   // FORGOT_PASSWORD_SUBMIT: { email: string }
   CONFIRM_SIGN_UP: { email: string; password: string }
   MAIN: undefined
+  MOCK: undefined
+  MOCK_DETAIL: { item: {} }
+  MOCK_STACK: undefined
+}
+
+const MockStack = () => {
+  return (
+    <SharedStack.Navigator initialRouteName='MOCK'>
+      <SharedStack.Screen
+        name="MOCK"
+        component={Mock}
+        options={{
+          headerShown: false
+        }}
+      />
+      <SharedStack.Screen
+        name="MOCK_DETAIL"
+        component={MockDetail}
+        options={{
+          headerShown: false
+        }}
+      />
+    </SharedStack.Navigator>
+  )
 }
 
 const AppNavigator = (): React.ReactElement => {
@@ -39,13 +66,22 @@ const AppNavigator = (): React.ReactElement => {
       > 
         {
           isLoggedIn ? (
-            <Stack.Screen
-              name="MAIN"
-              component={Main}
-              options={{
-                headerShown: false
-              }}
-            />
+            <>
+              <Stack.Screen
+                name="MOCK_STACK"
+                component={MockStack}
+                options={{
+                  headerShown: false
+                }}
+              />
+              <Stack.Screen
+                name="MAIN"
+                component={Main}
+                options={{
+                  headerShown: false
+                }}
+              />
+            </>
           ): (
               <>
                 <Stack.Screen
